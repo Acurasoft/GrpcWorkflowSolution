@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  grpc-server:
+    build:
+      context: .
+      dockerfile: GrpcWorkflow.Server/Dockerfile
+    ports:
+      - "5001:80"
+    networks:
+      - grpcnet
+
+  grpc-client:
+    build:
+      context: .
+      dockerfile: GrpcWorkflow.Client/Dockerfile
+    depends_on:
+      - grpc-server
+    networks:
+      - grpcnet
+
+networks:
+  grpcnet:
